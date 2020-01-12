@@ -113,12 +113,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .dispatcher(dispatcher)
                 .connectionPool(new ConnectionPool(100, 30, TimeUnit.SECONDS))
                 .build();
+        Intent intent=getIntent();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HttpUrl.parse("https://in.bookmyshow.com/bengaluru/events/"))
+                .baseUrl(HttpUrl.parse(intent.getStringExtra("baseurl")))
                 .addConverterFactory(MapsActivity.PageAdapter.FACTORY)
                 .build();
         MapsActivity.PageService requestAddress = retrofit.create(MapsActivity.PageService.class);
-        Call<MapsActivity.Page> pageCall = requestAddress.get(HttpUrl.parse("https://in.bookmyshow.com/bengaluru/events/"));
+        Call<MapsActivity.Page> pageCall = requestAddress.get(HttpUrl.parse(intent.getStringExtra("baseurl")));
         pageCall.enqueue(new Callback<MapsActivity.Page>() {
             @Override
             public void onResponse(Call<MapsActivity.Page> call, Response<MapsActivity.Page> response) {
