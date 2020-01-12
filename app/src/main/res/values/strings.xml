@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NyTimesSeachEngine</string>
+    <string name="month_hint">Month</string>
+    <string name="year_hint">Year</string>
+    <string name="search_button">Search</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
