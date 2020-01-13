@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.android.nytimesseachengine.EventDetails.EventsAndShiz;
 import com.example.android.nytimesseachengine.PlaceDetails.GetData;
 import com.example.android.nytimesseachengine.PlaceDetails.PlacesAndShiz;
 import com.example.android.nytimesseachengine.PlaceDetails.RetrofitClientInstance;
@@ -140,17 +139,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     String nam=matcher.group().substring(13);
                     nam=nam.substring(1,nam.length()-1);
                     eventName.add(nam);
-                }
-                while(matcher1.find())
-                {
-                    String s2=matcher1.group().substring(12);
-                    address.add(s2);
-                }
-                while (matcher2.find())
-                {
-                    String u=matcher2.group().substring(12);
-                    Log.i("URLLLLL",u);
-                    urls.add(u);
+                    if(matcher1.find()&&matcher2.find())
+                    {
+                        String s2=matcher1.group().substring(12);
+                        address.add(s2);
+                        String u=matcher2.group().substring(12);
+                        //Log.i("URLLLLL",u);
+                        urls.add(u);
+                    }
                 }
                 GetData getData= RetrofitClientInstance.getRetrofitInstance().create(GetData.class);
                 for(int h=0;h<15;h++)
@@ -185,7 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         {
                             if(eventName.get(i).equals(title))
                             {
-                                Log.i("ClickedURL",urls.get(i));
+                                //Log.i("ClickedURL",urls.get(i));
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 String uriString = urls.get(i).replace("\\\\", "//");
                                 intent.setData(Uri.parse(uriString.substring(1,uriString.length()-1)));
@@ -208,8 +204,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     public void creatingAMarker(double latitude,double longitude,String s)
     {
-        LatLng sydney = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(sydney).title(s));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng latLng = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(latLng).title(s));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 }
