@@ -8,6 +8,6 @@ import retrofit2.http.Query;
 
 public interface GetData {
 
-    @GET("maps/api/place/findplacefromtext/json?inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyDTsd-Li6aTI0CmNuEKxkOElp7tWfbsTm4")
+    @GET("maps/api/place/findplacefromtext/json?inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=API_KEY")
     Call<PlacesAndShiz> getData(@Query("input") String s);
 }
